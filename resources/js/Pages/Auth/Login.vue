@@ -37,7 +37,7 @@ const submit = () => {
             <AuthenticationCardLogo />
         </template>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
             {{ status }}
         </div>
 
@@ -48,7 +48,7 @@ const submit = () => {
                     id="email"
                     v-model="form.email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="block w-full mt-1"
                     required
                     autofocus
                 />
@@ -61,7 +61,7 @@ const submit = () => {
                     id="password"
                     v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="block w-full mt-1"
                     required
                     autocomplete="current-password"
                 />
@@ -76,7 +76,7 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                <Link v-if="canResetPassword" :href="route('password.request')" class="text-sm text-gray-600 underline hover:text-gray-900">
                     Forgot your password?
                 </Link>
 
@@ -85,5 +85,17 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
+            <template #register>
+                <div class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
+                    <div class="flex justify-center">
+                        <span class="mr-4 text-gray-600">No tienes cuenta?</span>
+                        <Link :href="route('register')" class="text-gray-600 underline hover:text-gray-900">
+                        Registrate
+                    </Link>
+                    </div>
+                </div>
+            </template>
     </AuthenticationCard>
+            
+        
 </template>
