@@ -10,7 +10,7 @@ import { Link } from '@inertiajs/inertia-vue3';
 
 
 <script>
-import image from '../../image/anstagram.png'
+import image from '../../image/logo-social.png'
     export default{
         data(){
             return{
