@@ -18,6 +18,8 @@ const form = useForm({
     _method: 'PUT',
     name: props.user.name,
     email: props.user.email,
+    web_site: props.user.web_site,
+    presentation: props.user.presentation,
     photo: null,
 });
 
@@ -175,7 +177,7 @@ const clearPhotoFileInput = () => {
 
              <!-- Web Site-->
              <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="web_site" value="web_site" />
+                <InputLabel for="web_site" value="Web site" />
                 <TextInput
                     id="web_site"
                     v-model="form.web_site"
@@ -185,17 +187,16 @@ const clearPhotoFileInput = () => {
                 <InputError :message="form.errors.web_site" class="mt-2" />
             </div>
 
-             <!-- Name -->
+             <!-- presentation -->
              <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="presentation" value="Presentation" />
                 <TextInput
-                    id="name"
-                    v-model="form.name"
+                    id="presentation"
+                    v-model="form.presentation"
                     type="text"
                     class="block w-full mt-1"
-                    autocomplete="name"
                 />
-                <InputError :message="form.errors.name" class="mt-2" />
+                <InputError :message="form.errors.presentation" class="mt-2" />
             </div>
         </template>
 
