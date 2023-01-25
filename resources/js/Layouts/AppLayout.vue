@@ -8,6 +8,8 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import axios from 'axios';
+import { defineAsyncComponent } from 'vue';
 //import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo;
 
 defineProps({
@@ -16,6 +18,23 @@ defineProps({
 
 const showingNavigationDropdown = ref(false);
 
+data = () => {
+    return {
+        users: [],
+        search:'',
+    }
+}; 
+
+
+methods: {
+    const userSearch = async() => {
+    await axios.get('/search/'+this.search)
+    .then(response => {
+        this.users = response.data
+        console.log(response.data);
+    })
+}
+}
 const switchToTeam = (team) => {
     Inertia.put(route('current-team.update'), {
         team_id: team.id,
@@ -27,6 +46,8 @@ const switchToTeam = (team) => {
 const logout = () => {
     Inertia.post(route('logout'));
 };
+
+
 </script>
 
 <template>
@@ -56,7 +77,7 @@ const logout = () => {
                                 <Dropdown align="center" width="100" overflow="overflow-y-auto" maxheight="300">
                                     <template #trigger>
                                         <div class="relative pt-2 mx-auto text-gray-600">
-                                            <input class="h-10 px-5 pr-16 text-sm bg-white rounded-lg w-100 order-gray-300 wborder-2 focus:outline-none"
+                                            <input v-model="search" @keyup="userSearch" class="h-10 px-5 pr-16 text-sm bg-white rounded-lg w-100 order-gray-300 wborder-2 focus:outline-none"
                                             type="search" placeholder="Buscar Amigos...">
                                             <span class="absolute top-0 right-0 mt-5 mr-4">
                                             <svg class="w-4 h-4 text-gray-600 fill-current" xmlns="http://www.w3.org/2000/svg"
@@ -72,11 +93,11 @@ const logout = () => {
                                     </template>
 
                                     <template #content>
-                                        <a href="" class="flex items-center block px-3 py-2 hover:bg-gray-100">
-                                            <img src="" alt="Diego">
+                                        <a v-if="user.length > 0" v-for="(user,index) in users" :key="index" href="" class="flex items-center block px-3 py-2 hover:bg-gray-100">
+                                            <img :src="user.profile_photo_url" :alt="user.name">
                                             <div class="ml-2 ">
-                                                <span class="block text-sm font-bold text-gray-700">Diegogo</span>
-                                                <span class="text-sm font-light text-gray-400">Diego jimenez</span>
+                                                <span class="block text-sm font-bold text-gray-700">{{ user.nick_name }}</span>
+                                                <span class="text-sm font-light text-gray-400">{{ user.name }}</span>
                                             </div>
                                         </a>
                                     </template>
