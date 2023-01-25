@@ -8,6 +8,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+//import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo;
 
 defineProps({
     title: String,
@@ -37,31 +38,59 @@ const logout = () => {
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
-                            <div class="shrink-0 flex items-center">
+                            <div class="flex items-center shrink-0">
                                 <Link :href="route('dashboard')">
-                                    <ApplicationMark class="block h-9 w-auto" />
+                                    <ApplicationMark class="block w-auto h-9" />
+                                    <AuthenticationCardLogo />
                                 </Link>
                             </div>
 
-                            <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </NavLink>
-                            </div>
+                            
                         </div>
 
+                        <div class="relative ml-3">
+                                <Dropdown align="center" width="100" overflow="overflow-y-auto" maxheight="300">
+                                    <template #trigger>
+                                        <div class="relative pt-2 mx-auto text-gray-600">
+                                            <input class="h-10 px-5 pr-16 text-sm bg-white rounded-lg w-100 order-gray-300 wborder-2 focus:outline-none"
+                                            type="search" placeholder="Buscar Amigos...">
+                                            <span class="absolute top-0 right-0 mt-5 mr-4">
+                                            <svg class="w-4 h-4 text-gray-600 fill-current" xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                                                viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+                                                width="512px" height="512px">
+                                                <path
+                                                d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+                                            </svg>
+                                            </span>
+                                        </div>
+                                                                        
+                                    </template>
+
+                                    <template #content>
+                                        <a href="" class="flex items-center block px-3 py-2 hover:bg-gray-100">
+                                            <img src="" alt="Diego">
+                                            <div class="ml-2 ">
+                                                <span class="block text-sm font-bold text-gray-700">Diegogo</span>
+                                                <span class="text-sm font-light text-gray-400">Diego jimenez</span>
+                                            </div>
+                                        </a>
+                                    </template>
+                                </Dropdown>
+                            </div>
+
+                        
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <div class="ml-3 relative">
+                            <div class="relative ml-3">
                                 <!-- Teams Dropdown -->
                                 <Dropdown v-if="$page.props.jetstream.hasTeamFeatures" align="right" width="60">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
-                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
                                                 {{ $page.props.user.current_team.name }}
 
                                                 <svg
@@ -106,7 +135,7 @@ const logout = () => {
                                                             <div class="flex items-center">
                                                                 <svg
                                                                     v-if="team.id == $page.props.user.current_team_id"
-                                                                    class="mr-2 h-5 w-5 text-green-400"
+                                                                    class="w-5 h-5 mr-2 text-green-400"
                                                                     fill="none"
                                                                     stroke-linecap="round"
                                                                     stroke-linejoin="round"
@@ -126,15 +155,15 @@ const logout = () => {
                             </div>
 
                             <!-- Settings Dropdown -->
-                            <div class="ml-3 relative">
+                            <div class="relative ml-3">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
-                                        <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                            <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
+                                        <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+                                            <img class="object-cover w-8 h-8 rounded-full" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
                                         </button>
 
                                         <span v-else class="inline-flex rounded-md">
-                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none">
                                                 {{ $page.props.user.name }}
 
                                                 <svg
@@ -177,10 +206,10 @@ const logout = () => {
                         </div>
 
                         <!-- Hamburger -->
-                        <div class="-mr-2 flex items-center sm:hidden">
-                            <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition" @click="showingNavigationDropdown = ! showingNavigationDropdown">
+                        <div class="flex items-center -mr-2 sm:hidden">
+                            <button class="inline-flex items-center justify-center p-2 text-gray-400 transition rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500" @click="showingNavigationDropdown = ! showingNavigationDropdown">
                                 <svg
-                                    class="h-6 w-6"
+                                    class="w-6 h-6"
                                     stroke="currentColor"
                                     fill="none"
                                     viewBox="0 0 24 24"
@@ -216,15 +245,15 @@ const logout = () => {
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="flex items-center px-4">
-                            <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
-                                <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
+                            <div v-if="$page.props.jetstream.managesProfilePhotos" class="mr-3 shrink-0">
+                                <img class="object-cover w-10 h-10 rounded-full" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
                             </div>
 
                             <div>
-                                <div class="font-medium text-base text-gray-800">
+                                <div class="text-base font-medium text-gray-800">
                                     {{ $page.props.user.name }}
                                 </div>
-                                <div class="font-medium text-sm text-gray-500">
+                                <div class="text-sm font-medium text-gray-500">
                                     {{ $page.props.user.email }}
                                 </div>
                             </div>
@@ -276,7 +305,7 @@ const logout = () => {
                                             <div class="flex items-center">
                                                 <svg
                                                     v-if="team.id == $page.props.user.current_team_id"
-                                                    class="mr-2 h-5 w-5 text-green-400"
+                                                    class="w-5 h-5 mr-2 text-green-400"
                                                     fill="none"
                                                     stroke-linecap="round"
                                                     stroke-linejoin="round"
@@ -297,7 +326,7 @@ const logout = () => {
 
             <!-- Page Heading -->
             <header v-if="$slots.header" class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>
             </header>
